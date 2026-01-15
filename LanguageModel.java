@@ -101,6 +101,10 @@ public class LanguageModel {
 	 * @return the generated text
 	 */
 	public String generate(String initialText, int textLength) {
+        if (initialText.length() >= textLength) {
+            return initialText.substring(0, textLength);
+        }
+
         if (initialText.length() < windowLength) return initialText;
 
         StringBuilder generated = new StringBuilder(initialText);
@@ -109,10 +113,9 @@ public class LanguageModel {
             String window = generated.substring(generated.length() - windowLength);
             List probs = CharDataMap.get(window);
 
-            if (probs == null) break; // window not found => stop and return what we have
+            if (probs == null) break;
 
-            char next = getRandomChar(probs);
-            generated.append(next);
+            generated.append(getRandomChar(probs));
         }
 
         return generated.toString();
