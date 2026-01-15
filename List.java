@@ -67,29 +67,13 @@ public class List {
         return -1;
     }
 
-    public void addLast(char chr) {
-        CharData data = new CharData(chr);
-        Node newNode = new Node(data);
-
-        if (first == null) {
-            first = newNode;
-        } else {
-            Node current = first;
-            while (current.next != null) {
-                current = current.next;
-            }
-            current.next = newNode;
-        }
-        size++;
-    }
-    
     /** If the given character exists in one of the CharData objects in this list,
      *  increments its counter. Otherwise, adds a new CharData object with the
      *  given chr to the beginning of this list. */
     public void update(char chr) {
         int index = indexOf(chr);
         if (index == -1) {
-            addLast(chr);
+            addFirst(chr);
         }
         else{
             get(index).count ++;

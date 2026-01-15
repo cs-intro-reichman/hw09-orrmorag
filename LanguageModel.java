@@ -88,7 +88,7 @@ public class LanguageModel {
         double r = randomGenerator.nextDouble();
         for (int i = 0; i < probs.getSize(); i++) {
             CharData cd = probs.get(i);
-            if (cd.cp >= r) return cd.chr;   // <-- change here
+            if (cd.cp > r) return cd.chr;
         }
         return probs.get(probs.getSize() - 1).chr;
 	}
@@ -101,11 +101,11 @@ public class LanguageModel {
 	 * @return the generated text
 	 */
 	public String generate(String initialText, int textLength) {
+        if (initialText.length() < windowLength) return initialText;
+        
         if (initialText.length() >= textLength) {
             return initialText.substring(0, textLength);
         }
-
-        if (initialText.length() < windowLength) return initialText;
 
         StringBuilder generated = new StringBuilder(initialText);
 
